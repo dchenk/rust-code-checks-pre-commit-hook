@@ -1,0 +1,19 @@
+#!/bin/bash
+
+check=$(cargo check)
+result=$?
+
+if [[ ${result} -ne 0 ]]; then
+        echo "Cannot commit: Type check failed"
+        exit 1
+fi
+
+fmt=$(cargo fmt -- --check)
+result=$?
+
+if [[ ${result} -ne 0 ]]; then
+        echo "Cannot commit: Code is not formatted"
+        exit 1
+fi
+
+exit 0
